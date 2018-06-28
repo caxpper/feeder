@@ -16,7 +16,7 @@ function initializeApp(){
 
           //AJAX instagram call
           $.ajax({ 
-            url: "http://localhost:3000/authorize",
+            url: "http://feeder.alejandro-gaspar.com/authorize",
             'type' : 'GET',
             'data' : {
                 'hashtag' : hashtag
@@ -38,7 +38,7 @@ function initializeApp(){
             setTimeout(function() {
                 console.log('inside timeout'); 
                 $.ajax({ 
-                  url: "http://localhost:3000/twitter",
+                  url: "http://feeder.alejandro-gaspar.com/twitter",
                   'type' : 'GET',
                   'data' : {
                       'hashtag' : hashtag
