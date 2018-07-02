@@ -124,7 +124,7 @@ function getImagesFromTag(tag){
         success: function(data) {
             let picture;
             if(data===''){
-                picture = $("<img src='../dist/images/noImage.jpg'></img>");
+                picture = $("<img src='./images/noImage.jpg'></img>");
             }else{
                 picture = $("<img src='"+ data +"'></img>");
             }                       
@@ -133,7 +133,7 @@ function getImagesFromTag(tag){
         error: function(err){
             console.log("An error occured: " + err.status + " " + err.statusText);
             if(err.status === 200){
-                let picture = $("<img src='../dist/images/noImage.jpg'></img>");
+                let picture = $("<img src='./images/noImage.jpg'></img>");
                 $('.instagram').append(picture);
             }
         }
