@@ -61,7 +61,7 @@ function newHashtag(){
  */
 function twitterCall(hashtag){
     $.ajax({ 
-        url: "http://localhost:3000/twitter",
+        url: "http://feeder.alejandro-gaspar.com/twitter",
         'type' : 'GET',
         'data' : {
             'hashtag' : hashtag
@@ -93,7 +93,7 @@ function twitterCall(hashtag){
  */
 function loginInstagram(){
     $.ajax({ 
-        url: "http://localhost:3000/authorize",
+        url: "http://feeder.alejandro-gaspar.com/authorize",
         'type' : 'GET', 
         success: function(data) {              
             var win = window.open(data,"_blank"); 
@@ -114,7 +114,7 @@ function loginInstagram(){
  */
 function getImagesFromTag(tag){
     $.ajax({ 
-        url: "http://localhost:3000/hashtag",
+        url: "http://feeder.alejandro-gaspar.com/hashtag",
         'type' : 'GET',
         'data' : {
             'hashtag' : tag
