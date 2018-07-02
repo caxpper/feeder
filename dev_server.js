@@ -37,7 +37,7 @@ ig.use(instagramCredentials);
 var client = new Twitter(twiteerCredentials);
 
 //the redirect uri we set when registering our application
-var redirectUri = 'http://localhost:3000/handleAuth';
+var redirectUri = 'http://feeder.alejandro-gaspar.com/handleAuth';
 var tag;
 
 endPoint.get('/authorize', function(req, res){  
