@@ -98,7 +98,8 @@ function loginInstagram(){
         success: function(data) {              
             var win = window.open(data,"_blank"); 
             setTimeout(()=>{
-                win.close(); 
+                if(win !== null)
+                    win.close(); 
             },400);     
         }, 
         error: function(err){
