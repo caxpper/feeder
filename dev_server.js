@@ -1,6 +1,5 @@
 const express = require('express');
 
-var session = require('express-session');
 const endPoint = express();
 const ig = require('instagram-node').instagram();
 const Twitter = require('twitter');
