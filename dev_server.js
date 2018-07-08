@@ -1,4 +1,5 @@
 const express = require('express');
+
 const endPoint = express();
 const ig = require('instagram-node').instagram();
 const Twitter = require('twitter');
@@ -36,46 +37,49 @@ ig.use(instagramCredentials);
 var client = new Twitter(twiteerCredentials);
 
 //the redirect uri we set when registering our application
-var redirectUri = 'http://localhost:3000/handleAuth';
+var redirectUri = 'http://feeder.alejandro-gaspar.com/handleAuth';
 var tag;
 
-endPoint.get('/authorize', function(req, res){
-    if(req.query.hashtag){
-        tag = req.query.hashtag;        
-        console.log('tag: ',tag);
-        // set the scope of our application to be able to access likes and public content
-        res.redirect(ig.get_authorization_url(redirectUri, { scope : ['public_content','likes']}) );
-    }else{
-        res.send(JSON.stringify('Error: You did not send a valid hashtag. Please try again'));
-    }
+endPoint.get('/authorize', function(req, res){  
+    // set the scope of our application to be able to access likes and public content
+    let url = ig.get_authorization_url(redirectUri, { scope : ['public_content','likes']});    
+    res.send(url);
 });
 
-endPoint.get('/handleAuth', function(req, res){
-         
+endPoint.get('/handleAuth', function(req, res){         
     console.log('auth');
     //retrieves the code that was passed along as a query to the '/handleAuth' route and uses this code to construct an access token
     ig.authorize_user(req.query.code, redirectUri, function(err, result){
         if(err) res.send( err );
-    // store this access_token in a global variable called accessToken
+        // store this access_token in a global variable called accessToken
         accessToken = result.access_token;
         console.log('accessToken: ' + accessToken);
-    // After getting the access_token redirect to the '/' route 
-        res.redirect('/hashtag');
+        res.send(JSON.stringify(result.access_token));
     });
 })
 
 endPoint.get('/hashtag',function(req,res){
-    console.log('Client is asking for a hashtag');
-     // create a new instance of the use method which contains the access token gotten
-    ig.use({
-        access_token : accessToken
-    });
-
-    ig.tag_media_recent(tag, function fetchPosts(err, medias, pagination, remaining, limit) {    
-        console.log('error: ' + err);
-        console.log('result: ' + medias.length);
-        res.send(JSON.stringify(medias[0]["images"]['standard_resolution']['url']));
-    });   
+    if(req.query.hashtag){
+        tag = req.query.hashtag;   
+        console.log('Client is asking for a hashtag: ',tag);
+        
+        // create a new instance of the use method which contains the access token gotten
+        ig.use({
+            access_token : accessToken
+        });
+    
+        ig.tag_media_recent(tag, function fetchPosts(err, medias, pagination, remaining, limit) {   
+            if(medias && medias.length > 0)  {
+                res.send(JSON.stringify(medias[0]["images"]['standard_resolution']['url']));
+            }else{
+                res.send("");
+            }     
+            
+        });   
+    }else{
+        res.send(JSON.stringify('Error: You did not send a valid hashtag. Please try again'));
+    }
+    
     
 });
 
@@ -85,7 +89,7 @@ endPoint.get('/twitter',function(req,res){
         var tag = req.query.hashtag;
         var params = {
             q: tag,
-            count: 10,
+            count: 50,
             result_type: 'recent',
             lang: 'en'
           }

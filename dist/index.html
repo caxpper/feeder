@@ -1,24 +1,24 @@
 <html lang="en">
 <head>
     <title>Demo Twiteer Feeder</title>
-    <script src="./bundle.js"></script>  
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <script src="./bundle.js"></script> 
 </head>
 <body>
     <div class="container">
        <div class="form">
-            <p>Please, introduce the hashtag that you want to get information from</p>
-            <input id='tagInput' type="text" placeholder="introduce the hashtag">
+            <h3>Please introduce the hashtag that you want to get information from</h3>
+            <input id='tagInput' type="text" placeholder="Introduce the hashtag">
             <button class='send'>Send</button>
+            <p class='hidden'>The hashtag don't have any letter, please introduce at lease one character</p>
        </div>
        <div class='display'>
              <div class='instagram'>
                   <h2>Instagram</h2>
              </div>
              <hr>
-             <div class='twiteer'>
+             <div class='twitter'>
                   <h2>Tweets</h2>
-                  <img src="" alt="">
+                  <div class='tweets'></div>
              </div>
        </div>
     </div>
